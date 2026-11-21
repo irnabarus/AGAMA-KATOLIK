@@ -1,1 +1,1025 @@
-selamat pagi teman-teman
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MISSION: AKU PRIBADI YANG UNIK!</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&family=Nunito:wght@400;600;700&display=swap');
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  :root{
+    --kuning:#FFD93D;
+    --oranye:#FF8C42;
+    --pink:#FF6B9D;
+    --biru:#4D96FF;
+    --hijau:#6BCB77;
+    --ungu:#9B5DE5;
+    --gelap:#2D1B4E;
+    --putih:#FFFDF7;
+  }
+
+  body{
+    font-family:'Nunito',sans-serif;
+    background:linear-gradient(135deg,#7B2FF7 0%,#F107A3 50%,#FF8C42 100%);
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:16px;
+    overflow-x:hidden;
+  }
+
+  .star{position:fixed;color:rgba(255,255,255,.6);font-size:20px;animation:twinkle 2s infinite;pointer-events:none;z-index:0;}
+  @keyframes twinkle{0%,100%{opacity:.2;transform:scale(.8);}50%{opacity:1;transform:scale(1.2);}}
+
+  .game-shell{
+    width:100%;
+    max-width:860px;
+    background:var(--putih);
+    border-radius:28px;
+    box-shadow:0 20px 60px rgba(0,0,0,.35), 0 0 0 8px rgba(255,255,255,.25);
+    overflow:hidden;
+    position:relative;
+    z-index:2;
+    animation:pop .5s ease;
+  }
+  @keyframes pop{from{transform:scale(.9);opacity:0;}to{transform:scale(1);opacity:1;}}
+
+  .header{
+    background:linear-gradient(90deg,var(--ungu),var(--pink),var(--oranye));
+    padding:18px 24px;
+    color:#fff;
+    position:relative;
+    overflow:hidden;
+  }
+  .header::after{
+    content:'✨';
+    position:absolute;right:-10px;top:-15px;font-size:80px;opacity:.2;
+  }
+  .header-top{
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;
+  }
+  .logo{display:flex;align-items:center;gap:10px;}
+  .logo .rocket{font-size:32px;animation:float 3s ease-in-out infinite;}
+  @keyframes float{0%,100%{transform:translateY(0) rotate(-5deg);}50%{transform:translateY(-6px) rotate(5deg);}}
+  .logo h1{
+    font-family:'Baloo 2',cursive;
+    font-size:clamp(18px,3vw,26px);
+    letter-spacing:.5px;
+    text-shadow:2px 2px 0 rgba(0,0,0,.15);
+    line-height:1.1;
+  }
+  .logo small{display:block;font-family:'Nunito';font-weight:600;font-size:12px;opacity:.9;letter-spacing:2px;}
+
+  .hud{display:flex;gap:10px;flex-wrap:wrap;}
+  .hud-pill{
+    background:rgba(255,255,255,.22);
+    border:2px solid rgba(255,255,255,.45);
+    border-radius:50px;
+    padding:6px 16px;
+    font-weight:800;
+    font-size:14px;
+    display:flex;align-items:center;gap:6px;
+    backdrop-filter:blur(4px);
+  }
+  .hud-pill .ico{font-size:16px;}
+
+  .progress-wrap{padding:14px 24px 0;}
+  .progress-track{
+    height:14px;background:#EDE7F6;border-radius:20px;overflow:hidden;
+    box-shadow:inset 0 2px 4px rgba(0,0,0,.12);
+  }
+  .progress-fill{
+    height:100%;width:0%;
+    background:linear-gradient(90deg,var(--hijau),#3DDC97);
+    border-radius:20px;
+    transition:width .5s cubic-bezier(.4,1.6,.6,1);
+    position:relative;
+  }
+  .progress-fill::after{
+    content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);
+    animation:shine 1.8s infinite;
+  }
+  @keyframes shine{from{transform:translateX(-100%);}to{transform:translateX(100%);}}
+
+  .main{padding:20px 24px 26px;}
+
+  .mascot-row{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+  .mascot{
+    font-size:44px;
+    animation:bob 2.4s ease-in-out infinite;
+    flex-shrink:0;
+    filter:drop-shadow(0 4px 6px rgba(0,0,0,.15));
+  }
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+  .speech{
+    background:#FFF3C4;
+    border:2.5px dashed var(--oranye);
+    border-radius:16px;
+    padding:10px 16px;
+    font-weight:700;
+    font-size:14px;
+    color:#5A3E00;
+    flex:1;
+    line-height:1.35;
+  }
+
+  .question-card{
+    background:linear-gradient(135deg,#F3EDFF,#E8F4FF);
+    border-radius:20px;
+    padding:20px 22px;
+    border:3px solid #D9C9FF;
+    box-shadow:0 6px 0 rgba(155,93,229,.18);
+    animation:slideIn .4s ease;
+    margin-bottom:16px;
+  }
+  @keyframes slideIn{from{transform:translateX(30px);opacity:0;}to{transform:translateX(0);opacity:1;}}
+
+  .q-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
+  .tag{
+    font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;
+    padding:4px 12px;border-radius:50px;color:#fff;
+  }
+  .tag.mudah{background:var(--hijau);}
+  .tag.sedang{background:var(--oranye);}
+  .tag.hots{background:#E63946;}
+  .tag.tipe{background:var(--biru);}
+
+  .q-text{
+    font-family:'Baloo 2',cursive;
+    font-size:clamp(16px,2.4vw,20px);
+    color:var(--gelap);
+    line-height:1.4;
+    margin-bottom:4px;
+  }
+  .q-ayat{
+    font-size:12.5px;font-style:italic;color:#7A6B99;margin-top:8px;
+    border-left:4px solid var(--kuning);padding-left:10px;line-height:1.4;
+  }
+
+  .options{display:grid;gap:10px;margin-top:14px;}
+  .option{
+    display:flex;align-items:flex-start;gap:12px;
+    background:#fff;
+    border:2.5px solid #E0D9F5;
+    border-radius:14px;
+    padding:12px 16px;
+    cursor:pointer;
+    font-weight:700;
+    font-size:14.5px;
+    color:#3B2E5A;
+    transition:all .18s;
+    text-align:left;
+    line-height:1.4;
+    box-shadow:0 3px 0 #E0D9F5;
+  }
+  .option:hover:not(.locked){transform:translateY(-2px);border-color:var(--ungu);box-shadow:0 5px 0 #C9B8F0;background:#FAF7FF;}
+  .option .badge-letter{
+    flex-shrink:0;
+    width:30px;height:30px;border-radius:9px;
+    background:linear-gradient(135deg,var(--ungu),var(--pink));
+    color:#fff;display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:15px;
+    box-shadow:0 3px 0 rgba(0,0,0,.15);
+  }
+  .option.correct{border-color:var(--hijau);background:#E8FBEE;box-shadow:0 3px 0 #A9E5BC;}
+  .option.correct .badge-letter{background:linear-gradient(135deg,#3DDC97,#1FAF6B);}
+  .option.wrong{border-color:#E63946;background:#FFEBEE;box-shadow:0 3px 0 #F5B5BA;}
+  .option.wrong .badge-letter{background:linear-gradient(135deg,#FF6B6B,#E63946);}
+  .option.locked{cursor:default;}
+  .option .mark{margin-left:auto;font-size:18px;}
+
+  .option.multi .badge-letter{background:linear-gradient(135deg,var(--biru),#2F6FD0);}
+  .option.selected-multi{border-color:var(--biru);background:#EAF3FF;box-shadow:0 3px 0 #A9C8F5;}
+  .option.selected-multi .badge-letter{background:linear-gradient(135deg,#5CA9FF,#2F6FD0);}
+
+  .feedback{
+    margin-top:14px;
+    border-radius:16px;
+    padding:14px 18px;
+    font-size:14px;
+    line-height:1.55;
+    display:none;
+    animation:fadeUp .35s ease;
+    border-left:6px solid;
+  }
+  @keyframes fadeUp{from{transform:translateY(10px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+  .feedback.show{display:block;}
+  .feedback.ok{background:#E8FBEE;border-color:var(--hijau);color:#0F5C34;}
+  .feedback.no{background:#FFEBEE;border-color:#E63946;color:#7A1120;}
+  .feedback .fb-title{font-family:'Baloo 2',cursive;font-size:16px;display:flex;align-items:center;gap:8px;margin-bottom:4px;}
+  .feedback .fb-ref{font-style:italic;font-size:12.5px;opacity:.8;margin-top:6px;display:block;}
+
+  .btn{
+    font-family:'Baloo 2',cursive;
+    border:none;cursor:pointer;
+    padding:13px 30px;
+    border-radius:50px;
+    font-size:16px;
+    font-weight:800;
+    color:#fff;
+    background:linear-gradient(135deg,var(--oranye),var(--pink));
+    box-shadow:0 5px 0 #C94A7A, 0 8px 18px rgba(0,0,0,.18);
+    transition:all .15s;
+    letter-spacing:.5px;
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 7px 0 #C94A7A, 0 10px 22px rgba(0,0,0,.22);}
+  .btn:active{transform:translateY(3px);box-shadow:0 2px 0 #C94A7A;}
+  .btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:0 5px 0 #C94A7A;}
+  .btn.blue{background:linear-gradient(135deg,var(--biru),#7B2FF7);box-shadow:0 5px 0 #2E4FA8;}
+  .btn.blue:hover{box-shadow:0 7px 0 #2E4FA8;}
+  .btn.blue:active{box-shadow:0 2px 0 #2E4FA8;}
+  .btn.green{background:linear-gradient(135deg,var(--hijau),#1FAF6B);box-shadow:0 5px 0 #16824F;}
+  .btn.green:hover{box-shadow:0 7px 0 #16824F;}
+  .btn.green:active{box-shadow:0 2px 0 #16824F;}
+
+  .action-row{display:flex;justify-content:flex-end;gap:10px;margin-top:16px;flex-wrap:wrap;}
+
+  .screen{display:none;}
+  .screen.active{display:block;}
+
+  .start-screen{text-align:center;padding:10px 6px 4px;}
+  .start-screen .big-emoji{font-size:70px;display:block;animation:bob 2.5s ease-in-out infinite;margin-bottom:6px;}
+  .start-screen h2{
+    font-family:'Baloo 2',cursive;font-size:clamp(22px,4vw,32px);
+    color:var(--gelap);margin-bottom:8px;
+    background:linear-gradient(90deg,var(--ungu),var(--pink),var(--oranye));
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  }
+  .start-screen p{font-size:14.5px;color:#5A4B7A;line-height:1.6;max-width:560px;margin:0 auto 14px;}
+  .mission-list{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+    gap:10px;margin:16px 0 20px;text-align:left;
+  }
+  .mission-item{
+    background:#F7F2FF;border:2px solid #E0D9F5;border-radius:14px;
+    padding:10px 12px;font-size:12.5px;font-weight:700;color:#4A3B6B;
+    display:flex;gap:8px;align-items:center;line-height:1.3;
+  }
+  .mission-item .mi-ico{font-size:20px;flex-shrink:0;}
+
+  .rules-box{
+    background:#FFF8E1;border:2px dashed var(--oranye);border-radius:14px;
+    padding:12px 16px;font-size:13px;color:#6B4E00;text-align:left;
+    margin-bottom:18px;line-height:1.55;
+  }
+  .rules-box b{color:#B35400;}
+
+  .result-screen{text-align:center;padding:6px;}
+  .trophy{font-size:80px;animation:bounceBig 1s ease infinite;display:inline-block;}
+  @keyframes bounceBig{0%,100%{transform:translateY(0) scale(1);}50%{transform:translateY(-14px) scale(1.05);}}
+  .result-screen h2{font-family:'Baloo 2',cursive;font-size:clamp(24px,5vw,34px);color:var(--gelap);margin:6px 0;}
+  .score-big{
+    font-family:'Baloo 2',cursive;font-size:60px;
+    background:linear-gradient(135deg,var(--oranye),var(--pink),var(--ungu));
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    line-height:1;
+  }
+  .score-label{font-size:14px;font-weight:800;color:#7A6B99;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;}
+
+  .stats-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));
+    gap:10px;margin:16px 0;
+  }
+  .stat-card{
+    border-radius:14px;padding:12px 8px;color:#fff;font-weight:800;
+  }
+  .stat-card .num{font-family:'Baloo 2',cursive;font-size:26px;display:block;line-height:1.1;}
+  .stat-card .lbl{font-size:11px;letter-spacing:.5px;opacity:.95;}
+  .stat-card.c1{background:linear-gradient(135deg,var(--hijau),#1FAF6B);}
+  .stat-card.c2{background:linear-gradient(135deg,#FF6B6B,#E63946);}
+  .stat-card.c3{background:linear-gradient(135deg,var(--biru),#2F6FD0);}
+
+  .badge-area{
+    display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:16px 0 8px;
+  }
+  .badge-card{
+    background:#fff;border:3px solid var(--kuning);border-radius:18px;
+    padding:12px 16px;min-width:120px;
+    box-shadow:0 6px 0 rgba(255,193,7,.35);
+    animation:badgePop .5s cubic-bezier(.4,1.6,.6,1) both;
+  }
+  @keyframes badgePop{from{transform:scale(0);}to{transform:scale(1);}}
+  .badge-card .b-ico{font-size:38px;display:block;}
+  .badge-card .b-name{font-family:'Baloo 2',cursive;font-size:13px;color:var(--gelap);margin-top:4px;}
+  .badge-card .b-desc{font-size:10.5px;color:#8A7BA8;line-height:1.3;margin-top:2px;}
+
+  .motivasi{
+    background:linear-gradient(135deg,#F3EDFF,#FFE8F1);
+    border-radius:18px;padding:16px 20px;margin:16px 0;
+    font-size:14px;line-height:1.6;color:#4A3B6B;
+    border:2px solid #E0D9F5;text-align:left;
+  }
+  .motivasi b{color:var(--ungu);}
+  .motivasi .ayat{font-style:italic;color:#7A6B99;display:block;margin-top:8px;font-size:12.5px;}
+
+  .confetti{
+    position:fixed;width:10px;height:10px;top:-20px;z-index:9999;
+    pointer-events:none;border-radius:2px;
+  }
+  @keyframes confFall{
+    to{transform:translateY(105vh) rotate(720deg);opacity:0;}
+  }
+
+  .review-list{text-align:left;margin-top:14px;max-height:260px;overflow-y:auto;padding-right:6px;}
+  .review-item{
+    display:flex;gap:10px;align-items:flex-start;
+    background:#F7F2FF;border-radius:12px;padding:9px 12px;margin-bottom:8px;
+    font-size:12.5px;line-height:1.4;color:#4A3B6B;
+  }
+  .review-item .ri-ico{font-size:16px;flex-shrink:0;margin-top:1px;}
+  .review-item b{color:var(--gelap);}
+
+  .footer-note{
+    text-align:center;font-size:11px;color:#A99BC4;margin-top:16px;letter-spacing:.5px;
+  }
+
+  ::-webkit-scrollbar{width:8px;}
+  ::-webkit-scrollbar-track{background:#EDE7F6;border-radius:10px;}
+  ::-webkit-scrollbar-thumb{background:#C9B8F0;border-radius:10px;}
+
+  @media(max-width:520px){
+    .main{padding:16px 14px 22px;}
+    .header{padding:14px 16px;}
+    .progress-wrap{padding:12px 16px 0;}
+    .option{padding:10px 12px;font-size:13.5px;}
+    .speech{font-size:12.5px;}
+    .mascot{font-size:36px;}
+    .hud-pill{font-size:12px;padding:5px 12px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="star" style="top:8%;left:6%;">✦</div>
+<div class="star" style="top:18%;right:9%;animation-delay:.6s;">✧</div>
+<div class="star" style="bottom:12%;left:12%;animation-delay:1.1s;">✦</div>
+<div class="star" style="bottom:22%;right:6%;animation-delay:.3s;">✧</div>
+<div class="star" style="top:45%;left:3%;animation-delay:1.4s;">✧</div>
+<div class="star" style="top:60%;right:4%;animation-delay:.9s;">✦</div>
+
+<div class="game-shell">
+
+  <div class="header">
+    <div class="header-top">
+      <div class="logo">
+        <span class="rocket">🚀</span>
+        <div>
+          <h1>MISSION: AKU PRIBADI YANG UNIK!</h1>
+          <small>PAK &amp; BUDI PEKERTI • KELAS X</small>
+        </div>
+      </div>
+      <div class="hud">
+        <div class="hud-pill"><span class="ico">⭐</span><span id="hudScore">0</span> poin</div>
+        <div class="hud-pill"><span class="ico">📋</span><span id="hudQ">1</span>/15</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div class="main">
+
+    <div class="screen active" id="screenStart">
+      <div class="start-screen">
+        <span class="big-emoji">🧭✨</span>
+        <h2>Selamat Datang, Agen Ciptaan Allah!</h2>
+        <p>
+          Setiap dari kita diciptakan Allah secara <b>istimewa</b> — unik, berharga, dan memiliki
+          talenta serta keterbatasan. Siap membuktikan bahwa kamu memahami martabat sebagai
+          <i>Imago Dei</i> (citra Allah)? Yuk mulai misi!
+        </p>
+
+        <div class="mission-list">
+          <div class="mission-item"><span class="mi-ico">🕊️</span> Manusia sebagai Citra Allah</div>
+          <div class="mission-item"><span class="mi-ico">💎</span> Keunikan Setiap Pribadi</div>
+          <div class="mission-item"><span class="mi-ico">🌟</span> Bakat &amp; Talenta</div>
+          <div class="mission-item"><span class="mi-ico">⚖️</span> Kelebihan &amp; Keterbatasan</div>
+          <div class="mission-item"><span class="mi-ico">🤝</span> Menghargai Perbedaan</div>
+          <div class="mission-item"><span class="mi-ico">💪</span> Percaya Diri Sehat</div>
+          <div class="mission-item"><span class="mi-ico">📱</span> Bijak di Media Sosial</div>
+          <div class="mission-item"><span class="mi-ico">🏆</span> Tanggung Jawab Talenta</div>
+        </div>
+
+        <div class="rules-box">
+          <b>📜 Aturan Misi:</b><br>
+          • Total <b>15 pertanyaan</b> dengan tingkat kesulitan bertahap.<br>
+          • Setiap soal memiliki <b>5 pilihan jawaban (A–E)</b>.<br>
+          • Ada pilihan ganda tunggal, pilihan ganda kompleks (boleh lebih dari satu), dan Benar/Salah.<br>
+          • Setiap jawaban mendapat <b>penjelasan</b> berdasarkan iman Katolik.<br>
+          • Kumpulkan poin dan raih <b>badge penghargaan</b> di akhir misi!<br>
+          • Tidak ada jawaban yang menjatuhkan — semua untuk belajar bersama. 💛
+        </div>
+
+        <button class="btn" onclick="startGame()">🚀 MULAI MISI</button>
+      </div>
+    </div>
+
+    <div class="screen" id="screenQuiz">
+      <div class="mascot-row">
+        <span class="mascot" id="mascot">🦉</span>
+        <div class="speech" id="speech">Semangat, Agen! Percaya dirimu — kamu diciptakan istimewa oleh Allah!</div>
+      </div>
+
+      <div class="question-card">
+        <div class="q-tags" id="qTags"></div>
+        <div class="q-text" id="qText"></div>
+        <div class="q-ayat" id="qAyat"></div>
+      </div>
+
+      <div class="options" id="options"></div>
+
+      <div class="feedback" id="feedback"></div>
+
+      <div class="action-row">
+        <button class="btn blue" id="btnCheck" onclick="checkAnswer()" disabled>✅ Periksa Jawaban</button>
+        <button class="btn green" id="btnNext" onclick="nextQuestion()" style="display:none;">➡️ Lanjut</button>
+      </div>
+    </div>
+
+    <div class="screen" id="screenResult">
+      <div class="result-screen">
+        <div class="trophy" id="trophy">🏆</div>
+        <h2 id="resultTitle">Misi Selesai!</h2>
+        <div class="score-big" id="finalScore">0</div>
+        <div class="score-label">Total Poin</div>
+
+        <div class="stats-grid">
+          <div class="stat-card c1"><span class="num" id="statCorrect">0</span><span class="lbl">BENAR</span></div>
+          <div class="stat-card c2"><span class="num" id="statWrong">0</span><span class="lbl">SALAH</span></div>
+          <div class="stat-card c3"><span class="num" id="statPct">0%</span><span class="lbl">AKURASI</span></div>
+        </div>
+
+        <div class="badge-area" id="badgeArea"></div>
+
+        <div class="motivasi" id="motivasiBox"></div>
+
+        <div class="review-list" id="reviewList"></div>
+
+        <div class="action-row" style="justify-content:center;margin-top:18px;">
+          <button class="btn" onclick="restartGame()">🔄 Ulangi Misi</button>
+        </div>
+
+        <div class="footer-note">“Aku bersyukur kepada-Mu, sebab kejadianku dahsyat dan ajaib.” — Mazmur 139:14</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* =====================================================
+   DATA 15 PERTANYAAN — 5 OPSI (A–E)
+   Kunci jawaban TIDAK selalu opsi terpanjang.
+   tipe: 'single' | 'multi' | 'tf'
+   level: 'mudah' | 'sedang' | 'hots'
+   jawaban: array index (0=A, 1=B, 2=C, 3=D, 4=E)
+===================================================== */
+const QUESTIONS = [
+
+  /* ---------- MUDAH (1-5) ---------- */
+  {
+    level:'mudah', tipe:'single',
+    teks:'Menurut Kitab Kejadian 1:26-27, manusia diciptakan menurut gambar dan rupa Allah. Apa makna gelar "Imago Dei" bagi manusia?',
+    ayat:'📖 Kejadian 1:26-27',
+    opsi:[
+      'Manusia adalah makhluk paling kuat dan berkuasa di bumi',
+      'Manusia boleh berbuat apa saja karena mewakili Allah',
+      'Manusia memiliki martabat luhur karena mencerminkan Allah dalam akal budi, hati, dan kasih',
+      'Manusia sama persis dengan Allah dalam segala hal',
+      'Manusia diciptakan hanya untuk menguasai alam tanpa tanggung jawab'
+    ],
+    jawaban:[2],
+    feedback:'Tepat! <b>Imago Dei</b> berarti manusia diciptakan menurut gambar dan rupa Allah. Martabat ini diberikan bukan karena kekuatan atau penampilan, melainkan karena manusia mencerminkan kasih, akal budi, dan kebebasan Allah. Karena itu setiap pribadi layak dihormati.',
+    ref:'Bdk. Kejadian 1:26-27; KGK 356-357'
+  },
+  {
+    level:'mudah', tipe:'tf',
+    teks:'Pernyataan: "Karena semua manusia adalah citra Allah, maka setiap orang — termasuk yang berbeda kemampuan, fisik, atau latar belakang — memiliki martabat yang sama dan harus dihargai."',
+    ayat:'📖 Kejadian 1:27',
+    opsi:['BENAR','SALAH','BENAR, tetapi hanya untuk yang berprestasi','SALAH, karena martabat ditentukan oleh kemampuan','BENAR, tetapi hanya untuk sesama Katolik'],
+    jawaban:[0],
+    feedback:'Benar! Semua manusia tanpa kecuali diciptakan sebagai citra Allah. Martabat manusia tidak ditentukan oleh nilai rapor, penampilan, atau popularitas. Inilah dasar mengapa perundungan dan merendahkan orang lain selalu salah di mata iman Katolik.',
+    ref:'Bdk. Kejadian 1:27; KGK 1934'
+  },
+  {
+    level:'mudah', tipe:'single',
+    teks:'Mazmur 139:13-14 berkata, "Sebab Engkaulah yang membentuk buah pinggangku, menenun aku dalam kandungan ibuku. Aku bersyukur kepada-Mu, sebab kejadianku dahsyat dan ajaib." Apa pesan utama ayat ini tentang dirimu?',
+    ayat:'📖 Mazmur 139:13-14',
+    opsi:[
+      'Aku terbentuk secara kebetulan tanpa rencana Allah',
+      'Aku harus menjadi sama seperti orang lain agar diterima',
+      'Nilai diriku bergantung sepenuhnya pada pujian orang lain',
+      'Aku diciptakan Allah dengan penuh perhatian, unik, dan ajaib — patut disyukuri',
+      'Keunikan diriku tidak ada artinya dibandingkan orang lain'
+    ],
+    jawaban:[3],
+    feedback:'Tepat! Pemazmur menyadari bahwa Allah "menenun" dirinya dengan sangat teliti. Artinya kamu bukan produk kebetulan — kamu dirancang Allah dengan keunikan dan tujuan. Rasa syukur adalah respons yang paling tepat atas keunikan itu.',
+    ref:'Bdk. Mazmur 139:13-14'
+  },
+  {
+    level:'mudah', tipe:'single',
+    teks:'Rina selalu merasa rendah diri karena nilai matematikanya lebih rendah dari temannya. Menurut iman Katolik, sikap paling sehat yang dapat Rina kembangkan adalah…',
+    ayat:'📖 1 Korintus 12:12-27',
+    opsi:[
+      'Menyimpulkan bahwa dirinya bodoh dan tidak berguna',
+      'Menyadari bahwa setiap orang punya kelebihan dan keterbatasan, lalu mengembangkan potensi dirinya sendiri',
+      'Menyontek agar nilainya sama dengan teman',
+      'Menjauhi teman yang nilainya lebih tinggi agar tidak merasa rendah',
+      'Berhenti belajar karena merasa sudah tidak mampu'
+    ],
+    jawaban:[1],
+    feedback:'Tepat! Tubuh Kristus terdiri dari banyak anggota dengan fungsi berbeda (1 Kor 12). Nilai akademik hanyalah satu aspek. Rina tetap berharga dan dipanggil mengembangkan talentanya sendiri tanpa harus membandingkan diri secara destruktif.',
+    ref:'Bdk. 1 Korintus 12:12-27'
+  },
+  {
+    level:'mudah', tipe:'single',
+    teks:'Dalam sebuah kerja kelompok, Doni tidak bisa menggambar sebaik Sari, tetapi ia sangat baik dalam menyusun presentasi. Sikap terbaik Doni adalah…',
+    ayat:'📖 1 Korintus 12:14-18',
+    opsi:[
+      'Memaksakan diri menggambar agar terlihat sama hebat dengan Sari',
+      'Diam saja dan tidak mengerjakan apa pun agar tidak salah',
+      'Mengakui keterbatasannya, mensyukuri kelebihannya, dan mengambil peran menyusun presentasi',
+      'Menganggap dirinya lebih rendah dari Sari dan mundur dari kelompok',
+      'Menyuruh Sari mengerjakan semua bagian karena dia lebih hebat'
+    ],
+    jawaban:[2],
+    feedback:'Tepat! Paulus menegaskan tiap anggota tubuh punya peran berbeda namun saling melengkapi. Mengakui keterbatasan bukan tanda lemah, melainkan jujur dan bijak. Sinergi dalam kelompok justru terjadi ketika setiap orang memberi dari kelebihannya.',
+    ref:'Bdk. 1 Korintus 12:14-18'
+  },
+
+  /* ---------- SEDANG (6-10) ---------- */
+  {
+    level:'sedang', tipe:'multi',
+    teks:'Pilihlah SEMUA pernyataan yang BENAR tentang menghargai perbedaan sebagai citra Allah! (Jawaban bisa lebih dari satu)',
+    ayat:'📖 Kejadian 1:27; 1 Korintus 12:12-27',
+    opsi:[
+      'Setiap orang unik dan tidak ada yang identik, sehingga perbandingan yang merendahkan tidak tepat',
+      'Teman yang berbeda keyakinan boleh dihina karena kita merasa paling benar',
+      'Perbedaan suku, agama, kemampuan, dan fisik adalah kekayaan yang perlu dihargai',
+      'Perbedaan sebaiknya dihapus agar semua orang menjadi sama',
+      'Menghargai perbedaan berarti memperlakukan setiap orang dengan kasih dan hormat'
+    ],
+    jawaban:[0,2,4],
+    feedback:'Tepat! Jawaban A, C, dan E benar. Sebagai citra Allah, setiap pribadi unik dan berharga. Perbedaan adalah kekayaan. Menghina orang karena berbeda keyakinan atau kemampuan bertentangan dengan kasih Kristus, dan menyeragamkan semua orang bukanlah tujuan iman.',
+    ref:'Bdk. Kejadian 1:27; 1 Korintus 12:12-27; KGK 1931-1933'
+  },
+  {
+    level:'sedang', tipe:'tf',
+    teks:'Pernyataan: "Membandingkan diri terus-menerus dengan pencapaian orang lain di media sosial — sampai merasa diri tidak berharga — adalah sikap yang sehat dan sesuai iman Katolik."',
+    ayat:'📖 Mazmur 139:14; Galatia 6:4',
+    opsi:['BENAR','SALAH','BENAR, asal tidak berlebihan','SALAH, tetapi hanya jika sudah parah','BENAR, karena itu memotivasi diri'],
+    jawaban:[1],
+    feedback:'Salah! Membandingkan diri secara destruktif dapat mengikis rasa syukur atas keunikan diri. Iman Katolik mendorong kita bersyukur atas karunia masing-masing dan mengembangkannya. Paulus menasihati: "Baiklah tiap-tiap orang menguji pekerjaannya sendiri" (Gal 6:4), bukan terus membandingkan dengan orang lain.',
+    ref:'Bdk. Mazmur 139:14; Galatia 6:4'
+  },
+  {
+    level:'sedang', tipe:'single',
+    teks:'Bacalah kisah ini: "Andi diejek di grup kelas karena tubuhnya lebih pendek. Ia mulai malu ke sekolah." Sebagai teman Katolik, tindakan yang paling mencerminkan iman adalah…',
+    ayat:'📖 Kejadian 1:27; Matius 7:12',
+    opsi:[
+      'Ikut menertawakan agar tidak ikut menjadi korban',
+      'Diam saja karena bukan urusan saya',
+      'Menyarankan Andi pindah sekolah saja agar tidak diejek',
+      'Merekam kejadian itu untuk diunggah ke media sosial',
+      'Membela Andi, menghentikan ejekan, dan mengingatkan bahwa setiap orang adalah citra Allah yang patut dihormati'
+    ],
+    jawaban:[4],
+    feedback:'Tepat! Perundungan terhadap fisik bertentangan langsung dengan martabat Imago Dei. Yesus mengajarkan "segala sesuatu yang kamu kehendaki diperbuat orang kepadamu, perbuatlah demikian juga" (Mat 7:12). Membela korban adalah wujud kasih yang nyata.',
+    ref:'Bdk. Kejadian 1:27; Matius 7:12; KGK 1934'
+  },
+  {
+    level:'sedang', tipe:'multi',
+    teks:'Pilihlah SEMUA cara yang BENAR untuk mengembangkan talenta sebagai bentuk tanggung jawab kepada Allah!',
+    ayat:'📖 Matius 25:14-30 (perumpamaan talenta); 1 Petrus 4:10',
+    opsi:[
+      'Menyembunyikan talenta karena takut dikritik',
+      'Melatih dan mengasah bakat yang sudah dianugerahkan Allah',
+      'Menyombongkan talenta agar dipuji orang lain',
+      'Menggunakan talenta untuk melayani sesama dan memuliakan Tuhan',
+      'Berani mencoba hal baru dan belajar dari kegagalan'
+    ],
+    jawaban:[1,3,4],
+    feedback:'Tepat! Jawaban B, D, dan E benar. Perumpamaan talenta (Mat 25) mengajarkan bahwa talenta adalah pemberian Allah yang harus dikembangkan dan dipertanggungjawabkan, bukan disembunyikan karena takut. Talenta dipakai untuk melayani, bukan untuk sombong.',
+    ref:'Bdk. Matius 25:14-30; 1 Petrus 4:10'
+  },
+  {
+    level:'sedang', tipe:'single',
+    teks:'Perhatikan dialog ini:\nSinta: "Aku ingin ikut lomba debat, tapi aku takut gugup dan ditertawakan."\nApa nasihat paling tepat yang mencerminkan iman Katolik?',
+    ayat:'📖 2 Timotius 1:7; Mazmur 139:14',
+    opsi:[
+      'Jangan ikut saja, takut gagal itu wajar dan aman',
+      'Kamu pasti menang, semua orang pasti kagum padamu',
+      'Ikutlah, tapi hanya kalau kamu yakin bisa mengalahkan semua peserta',
+      'Rasa gugup itu manusiawi; kamu berharga bukan karena menang. Cobalah dengan doa dan keberanian, karena Allah memberi roh yang membangkitkan kekuatan, kasih, dan ketertiban',
+      'Tidak perlu ikut lomba, prestasi tidak penting sama sekali'
+    ],
+    jawaban:[3],
+    feedback:'Tepat! 2 Timotius 1:7 berkata Allah memberi roh yang membangkitkan kekuatan, kasih, dan ketertiban — bukan roh takut. Percaya diri sehat berarti berani mencoba karena sadar dirinya berharga di mata Allah, bukan karena jaminan menang.',
+    ref:'Bdk. 2 Timotius 1:7; Mazmur 139:14'
+  },
+
+  /* ---------- HOTS (11-15) ---------- */
+  {
+    level:'hots', tipe:'multi',
+    teks:'Perhatikan kasus berikut:\n"Di kelas X, Dita selalu mendapat nilai tertinggi. Ia sering merendahkan teman yang nilainya rendah, bahkan memamerkan nilainya di media sosial dengan caption mengejek."\nPilihlah SEMUA analisis yang BENAR menurut iman Katolik!',
+    ayat:'📖 1 Korintus 12:12-27; Roma 12:3',
+    opsi:[
+      'Dita berhak merendahkan teman karena nilainya memang lebih tinggi',
+      'Kepintaran Dita adalah karunia Allah, tetapi cara memakainya melukai martabat teman-temannya',
+      'Caption mengejek di media sosial adalah cara wajar menunjukkan prestasi',
+      'Roma 12:3 mengingatkan agar tidak memandang diri terlalu tinggi; bakat seharusnya membuat rendah hati',
+      'Sikap Dita menunjukkan bahwa prestasi tanpa kasih dapat menjauhkan diri dari nilai Kerajaan Allah'
+    ],
+    jawaban:[1,3,4],
+    feedback:'Tepat! Jawaban B, D, dan E benar. Kepintaran adalah karunia, namun Roma 12:3 menasihati agar tidak memandang diri terlalu tinggi. Talenta semestinya membangun, bukan melukai. Yesus sendiri mengajarkan bahwa kasih adalah hukum utama — prestasi tanpa kasih kehilangan maknanya.',
+    ref:'Bdk. Roma 12:3; 1 Korintus 12:12-27; 13:1-3'
+  },
+  {
+    level:'hots', tipe:'tf',
+    teks:'Pernyataan: "Percaya diri secara sehat dalam iman Katolik berarti menyadari bahwa diriku berharga karena Allah mencintaiku, sekaligus jujur mengakui keterbatasanku tanpa merasa hancur."',
+    ayat:'📖 Mazmur 139:14; Roma 12:3',
+    opsi:['SALAH, karena mengakui keterbatasan itu tanda lemah','BENAR','BENAR, tetapi hanya bagi yang berprestasi','SALAH, karena percaya diri berarti tidak boleh mengakui kekurangan','BENAR, asal tidak mengakui kesalahan'],
+    jawaban:[1],
+    feedback:'Benar! Percaya diri sehat berakar pada kasih Allah, bukan pada pujian manusia semata. Kita jujur mengakui keterbatasan bukan untuk menghina diri, melainkan untuk bersikap realistis dan membuka ruang bertumbuh. Inilah sikap rendah hati yang dikehendaki Allah.',
+    ref:'Bdk. Mazmur 139:14; Roma 12:3'
+  },
+  {
+    level:'hots', tipe:'single',
+    teks:'Bacalah situasi ini:\n"Tono adalah siswa pendiam yang merasa tidak punya bakat apa pun. Ia ingin menyendiri dan menolak ikut kegiatan sekolah karena takut gagal."\nSebagai teman Katolik, langkah terbaik yang kamu lakukan adalah…',
+    ayat:'📖 1 Korintus 12:22-27',
+    opsi:[
+      'Membiarkannya saja, itu hak Tono sepenuhnya',
+      'Menasihatinya dengan keras agar berubah segera',
+      'Menganggap Tono tidak bisa diubah dan menjauh darinya',
+      'Menyuruhnya meniru teman yang lebih populer agar diterima',
+      'Mendampinginya, mengajak mencoba kegiatan kecil, dan meyakinkannya bahwa ia tetap anggota tubuh Kristus yang berharga dan dibutuhkan'
+    ],
+    jawaban:[4],
+    feedback:'Tepat! 1 Korintus 12:22-27 menegaskan bahwa anggota yang tampak "lemah" justru diperlukan, dan semuanya saling memperhatikan. Pendampingan yang penuh kasih — bukan paksaan atau pembiaran — adalah cara Gereja menghadirkan wajah Kristus bagi sesama.',
+    ref:'Bdk. 1 Korintus 12:22-27; Galatia 6:2'
+  },
+  {
+    level:'hots', tipe:'multi',
+    teks:'Pilihlah SEMUA pernyataan yang mencerminkan pemahaman MATANG tentang keunikan diri sebagai citra Allah!',
+    ayat:'📖 Kejadian 1:27; Mazmur 139:13-14; 1 Korintus 12',
+    opsi:[
+      'Aku harus selalu lebih unggul dari teman agar dianggap berhasil',
+      'Aku tidak perlu menjadi orang lain untuk berharga; aku berharga karena diciptakan Allah',
+      'Aku menilai martabat seseorang dari nilai rapornya',
+      'Aku boleh bersyukur atas kelebihanku tanpa merendahkan orang lain',
+      'Aku jujur mengakui keterbatasanku dan tetap mau belajar'
+    ],
+    jawaban:[1,3,4],
+    feedback:'Tepat! Jawaban B, D, dan E mencerminkan kedewasaan iman. Sedangkan jawaban A dan C keliru: iman Katolik tidak mengajarkan kompetisi untuk menjatuhkan, dan martabat manusia tidak diukur dari nilai rapor. Semangat kita adalah bertumbuh dan saling membangun.',
+    ref:'Bdk. Kejadian 1:27; Mazmur 139:13-14; 1 Korintus 12'
+  },
+  {
+    level:'hots', tipe:'single',
+    teks:'Seorang siswa menulis di media sosial: "Cuma aku yang nggak punya bakat, hidupku nggak berguna." Menurut iman Katolik, jawaban yang paling tepat untuk membantunya adalah…',
+    ayat:'📖 Mazmur 139:14; Yeremia 29:11; 1 Korintus 12:12-27',
+    opsi:[
+      'Semua orang harus populer agar dianggap berguna',
+      'Bakat hanya soal seni dan olahraga; kalau tidak ada, memang tidak berguna',
+      'Kamu harus membandingkan dirimu dengan yang lebih hebat agar termotivasi',
+      'Allah menciptakanmu dengan rencana dan keunikan; nilaimu tidak ditentukan oleh jumlah bakat yang terlihat, dan setiap pribadi punya peran dalam Tubuh Kristus',
+      'Lebih baik berhenti bermedia sosial karena tidak ada yang peduli'
+    ],
+    jawaban:[3],
+    feedback:'Tepat! Yeremia 29:11 menegaskan Allah punya rencana damai bagi hidup kita. Keunikan seseorang tidak diukur dari "bakat yang tampak", karena setiap anggota Tubuh Kristus punya peran. Pesan ini memulihkan martabat dan harapan.',
+    ref:'Bdk. Mazmur 139:14; Yeremia 29:11; 1 Korintus 12:12-27'
+  }
+];
+
+/* =====================================================
+   STATE
+===================================================== */
+let currentIndex = 0;
+let score = 0;
+let correctCount = 0;
+let wrongCount = 0;
+let selectedOptions = [];
+let answered = false;
+let userAnswers = [];
+let totalPoinMaks = 0;
+
+const POIN = { mudah:10, sedang:15, hots:20 };
+
+/* =====================================================
+   UTIL
+===================================================== */
+const $ = id => document.getElementById(id);
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  $(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function labelLevel(l){
+  if(l==='mudah') return 'MUDAH';
+  if(l==='sedang') return 'SEDANG';
+  return 'HOTS';
+}
+function labelTipe(t){
+  if(t==='single') return 'PILIHAN GANDA';
+  if(t==='multi') return 'PILIHAN GANDA KOMPLEKS';
+  return 'BENAR / SALAH';
+}
+function letterFor(i){
+  return String.fromCharCode(65+i); // A,B,C,D,E
+}
+
+/* =====================================================
+   START
+===================================================== */
+function startGame(){
+  currentIndex = 0;
+  score = 0;
+  correctCount = 0;
+  wrongCount = 0;
+  userAnswers = [];
+  totalPoinMaks = QUESTIONS.reduce((a,q)=>a+POIN[q.level],0);
+  $('hudScore').textContent = 0;
+  showScreen('screenQuiz');
+  renderQuestion();
+}
+
+/* =====================================================
+   RENDER SOAL
+===================================================== */
+function renderQuestion(){
+  answered = false;
+  selectedOptions = [];
+  const q = QUESTIONS[currentIndex];
+
+  $('progressFill').style.width = ((currentIndex)/QUESTIONS.length*100) + '%';
+  $('hudQ').textContent = (currentIndex+1);
+  $('hudScore').textContent = score;
+
+  $('qTags').innerHTML = `
+    <span class="tag ${q.level}">${labelLevel(q.level)}</span>
+    <span class="tag tipe">${labelTipe(q.tipe)}</span>
+    <span class="tag" style="background:#8A7BA8;">Soal ${currentIndex+1}/${QUESTIONS.length}</span>
+  `;
+
+  $('qText').innerHTML = q.teks.replace(/\n/g,'<br>');
+  $('qAyat').innerHTML = q.ayat || '';
+
+  const optWrap = $('options');
+  optWrap.innerHTML = '';
+  q.opsi.forEach((opsi,i)=>{
+    const div = document.createElement('div');
+    div.className = 'option';
+    if(q.tipe==='multi') div.classList.add('multi');
+    div.dataset.idx = i;
+    div.innerHTML = `
+      <span class="badge-letter">${letterFor(i)}</span>
+      <span class="opt-text">${opsi}</span>
+      <span class="mark"></span>
+    `;
+    div.onclick = ()=>selectOption(i);
+    optWrap.appendChild(div);
+  });
+
+  $('feedback').className = 'feedback';
+  $('feedback').innerHTML = '';
+  $('btnCheck').disabled = true;
+  $('btnCheck').style.display = 'inline-block';
+  $('btnNext').style.display = 'none';
+
+  const speechArr = [
+    'Baca dengan teliti ya, Agen! Kamu pasti bisa. 💪',
+    'Ingat, setiap orang diciptakan istimewa oleh Allah! ✨',
+    'Jangan takut salah — belajar itu bagian dari bertumbuh. 🌱',
+    'Renungkan dulu sebelum menjawab. Kamu hebat! 🌟',
+    'Allah menyertai usahamu. Semangat! 🕊️'
+  ];
+  $('mascot').textContent = ['🦉','🐣','🦊','🐼','🦁'][currentIndex % 5];
+  $('speech').textContent = speechArr[currentIndex % speechArr.length];
+}
+
+/* =====================================================
+   PILIH OPSI
+===================================================== */
+function selectOption(i){
+  if(answered) return;
+  const q = QUESTIONS[currentIndex];
+  const opts = document.querySelectorAll('#options .option');
+
+  if(q.tipe==='multi'){
+    const pos = selectedOptions.indexOf(i);
+    if(pos>-1){
+      selectedOptions.splice(pos,1);
+      opts[i].classList.remove('selected-multi');
+    }else{
+      selectedOptions.push(i);
+      opts[i].classList.add('selected-multi');
+    }
+    $('btnCheck').disabled = selectedOptions.length === 0;
+  }else{
+    selectedOptions = [i];
+    opts.forEach(o=>o.classList.remove('selected-multi'));
+    opts[i].classList.add('selected-multi');
+    $('btnCheck').disabled = false;
+  }
+}
+
+/* =====================================================
+   CEK JAWABAN
+===================================================== */
+function checkAnswer(){
+  if(answered) return;
+  const q = QUESTIONS[currentIndex];
+  const opts = document.querySelectorAll('#options .option');
+  const jawabanBenar = q.jawaban.slice().sort((a,b)=>a-b);
+  const dipilih = selectedOptions.slice().sort((a,b)=>a-b);
+
+  const isCorrect = jawabanBenar.length === dipilih.length &&
+                    jawabanBenar.every((v,k)=>v===dipilih[k]);
+
+  opts.forEach((o,i)=>{
+    o.classList.add('locked');
+    o.classList.remove('selected-multi');
+    if(jawabanBenar.includes(i)) o.classList.add('correct');
+    if(dipilih.includes(i) && !jawabanBenar.includes(i)) o.classList.add('wrong');
+  });
+  opts.forEach((o,i)=>{
+    const mark = o.querySelector('.mark');
+    if(jawabanBenar.includes(i)) mark.textContent = '✔️';
+    else if(dipilih.includes(i)) mark.textContent = '❌';
+  });
+
+  const poin = POIN[q.level];
+  if(isCorrect){
+    score += poin;
+    correctCount++;
+  }else{
+    wrongCount++;
+  }
+  $('hudScore').textContent = score;
+
+  const fb = $('feedback');
+  if(isCorrect){
+    fb.className = 'feedback ok show';
+    fb.innerHTML = `
+      <div class="fb-title">🎉 Hebat, Agen! +${poin} poin</div>
+      ${q.feedback}
+      <span class="fb-ref">${q.ref || ''}</span>
+    `;
+  }else{
+    fb.className = 'feedback no show';
+    fb.innerHTML = `
+      <div class="fb-title">💡 Belum tepat — tapi tetap semangat!</div>
+      ${q.feedback}
+      <span class="fb-ref">${q.ref || ''}</span>
+    `;
+  }
+
+  userAnswers.push({index:currentIndex, benar:isCorrect});
+
+  answered = true;
+  $('btnCheck').disabled = true;
+  $('btnCheck').style.display = 'none';
+  $('btnNext').style.display = 'inline-block';
+  $('btnNext').textContent = (currentIndex === QUESTIONS.length-1) ? '🏁 Lihat Hasil' : '➡️ Lanjut';
+}
+
+/* =====================================================
+   NEXT
+===================================================== */
+function nextQuestion(){
+  if(currentIndex < QUESTIONS.length-1){
+    currentIndex++;
+    renderQuestion();
+  }else{
+    finishGame();
+  }
+}
+
+/* =====================================================
+   SELESAI
+===================================================== */
+function finishGame(){
+  $('progressFill').style.width = '100%';
+  showScreen('screenResult');
+
+  const total = QUESTIONS.length;
+  const pct = Math.round(correctCount/total*100);
+
+  $('finalScore').textContent = score;
+  $('statCorrect').textContent = correctCount;
+  $('statWrong').textContent = wrongCount;
+  $('statPct').textContent = pct + '%';
+
+  const badgeArea = $('badgeArea');
+  badgeArea.innerHTML = '';
+  let title = 'Misi Selesai!';
+  let trophy = '🏆';
+  let motivasi = '';
+
+  const badges = [];
+
+  if(pct >= 90){
+    title = 'LUAR BIASA, AGEN BINTANG!';
+    trophy = '🌟';
+    badges.push({ico:'🥇', nama:'Agen Bintang', desc:'Pemahaman sangat mendalam tentang Imago Dei'});
+  }else if(pct >= 75){
+    title = 'KEREN SEKALI, AGEN HEBAT!';
+    trophy = '🏅';
+    badges.push({ico:'🥈', nama:'Agen Hebat', desc:'Pemahaman baik, terus bertumbuh!'});
+  }else if(pct >= 50){
+    title = 'BAGUS, AGEN MUDA!';
+    trophy = '🎖️';
+    badges.push({ico:'🥉', nama:'Agen Muda', desc:'Awal yang baik, ayo tingkatkan!'});
+  }else{
+    title = 'JANGAN MENYERAH, AGEN!';
+    trophy = '💪';
+    badges.push({ico:'🌱', nama:'Agen Bertumbuh', desc:'Setiap langkah belajar itu berharga'});
+  }
+
+  if(correctCount >= 10) badges.push({ico:'📖', nama:'Sahabat Sabda', desc:'Menjawab benar 10+ soal'});
+  if(pct === 100) badges.push({ico:'💎', nama:'Sempurna', desc:'Semua jawaban benar!'});
+  if(wrongCount <= 3) badges.push({ico:'🕊️', nama:'Hati Bijak', desc:'Hampir tak ada kesalahan'});
+
+  badges.forEach((b,idx)=>{
+    const d = document.createElement('div');
+    d.className = 'badge-card';
+    d.style.animationDelay = (idx*0.12)+'s';
+    d.innerHTML = `<span class="b-ico">${b.ico}</span><div class="b-name">${b.nama}</div><div class="b-desc">${b.desc}</div>`;
+    badgeArea.appendChild(d);
+  });
+
+  $('resultTitle').textContent = title;
+  $('trophy').textContent = trophy;
+
+  if(pct >= 90){
+    motivasi = `<b>Kamu memahami betul martabat sebagai citra Allah!</b> Teruslah bersyukur atas keunikanmu dan gunakan talentamu untuk melayani sesama. Ingatlah, kamu bukan hanya pintar — kamu juga dipanggil untuk mengasihi.
+      <span class="ayat">“Aku bersyukur kepada-Mu, sebab kejadianku dahsyat dan ajaib.” — Mazmur 139:14</span>`;
+  }else if(pct >= 75){
+    motivasi = `<b>Pemahamanmu sudah baik!</b> Teruslah mengembangkan talenta yang Allah berikan. Jangan membandingkan dirimu dengan orang lain — kamu berharga karena diciptakan Allah, bukan karena nilai. Tetap rendah hati dan terus belajar.
+      <span class="ayat">“Tiap-tiap orang harus memperhatikan pekerjaannya sendiri…” — Galatia 6:4</span>`;
+  }else if(pct >= 50){
+    motivasi = `<b>Awal yang bagus!</b> Setiap pribadi unik dan sedang bertumbuh. Jangan takut mengulang misi ini — belajar adalah bagian dari perjalanan iman. Kamu berharga di mata Allah, apa pun hasilmu hari ini.
+      <span class="ayat">“Aku mau bersyukur kepada-Mu, sebab Engkau telah menjadikan aku dengan dahsyat dan ajaib.” — Mazmur 139:14</span>`;
+  }else{
+    motivasi = `<b>Jangan menyerah ya, Agen!</b> Kegagalan bukan akhir, melainkan kesempatan bertumbuh. Kamu tetap diciptakan Allah dengan martabat dan potensi besar. Coba pelajari kembali Kejadian 1:26-27 dan Mazmur 139, lalu ulangi misi ini. Allah tidak pernah berhenti mengasihimu.
+      <span class="ayat">“Sebab Aku ini mengetahui rancangan-rancangan apa yang ada pada-Ku mengenai kamu… rancangan damai sejahtera.” — Yeremia 29:11</span>`;
+  }
+  $('motivasiBox').innerHTML = motivasi;
+
+  const rl = $('reviewList');
+  rl.innerHTML = '<div style="font-family:\'Baloo 2\',cursive;font-size:15px;color:#4A3B6B;margin-bottom:8px;">📋 Ringkasan Jawabanmu</div>';
+  userAnswers.forEach((ua, idx)=>{
+    const q = QUESTIONS[ua.index];
+    const d = document.createElement('div');
+    d.className = 'review-item';
+    d.innerHTML = `
+      <span class="ri-ico">${ua.benar?'✅':'❌'}</span>
+      <div><b>Soal ${ua.index+1} (${labelLevel(q.level)})</b> — ${ua.benar?'Benar':'Belum tepat'}<br>
+      <span style="font-size:11.5px;color:#7A6B99;">${q.teks.substring(0,95)}...</span></div>
+    `;
+    rl.appendChild(d);
+  });
+
+  if(pct >= 75) launchConfetti();
+}
+
+/* =====================================================
+   CONFETTI
+===================================================== */
+function launchConfetti(){
+  const colors = ['#FFD93D','#FF8C42','#FF6B9D','#4D96FF','#6BCB77','#9B5DE5'];
+  for(let i=0;i<70;i++){
+    const c = document.createElement('div');
+    c.className = 'confetti';
+    c.style.left = Math.random()*100 + 'vw';
+    c.style.background = colors[Math.floor(Math.random()*colors.length)];
+    c.style.width = (Math.random()*8+6)+'px';
+    c.style.height = (Math.random()*8+6)+'px';
+    c.style.borderRadius = Math.random()>0.5?'50%':'2px';
+    c.style.animation = `confFall ${Math.random()*2+2}s linear forwards`;
+    c.style.animationDelay = (Math.random()*0.8)+'s';
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(), 4500);
+  }
+}
+
+/* =====================================================
+   RESTART
+===================================================== */
+function restartGame(){
+  showScreen('screenStart');
+  $('progressFill').style.width = '0%';
+  $('hudScore').textContent = '0';
+  $('hudQ').textContent = '1';
+}
+</script>
+
+</body>
+</html>
